@@ -23,12 +23,16 @@ public class UserMapper implements RowMapper<User> {
 			user.setModifiedDate(resultSet.getTimestamp("modifieddate"));
 			user.setCreatedBy(resultSet.getString("createdby"));
 			user.setModifiedBy(resultSet.getString("modifiedby"));
-			
-			Role role = new Role();
-			role.setCode(resultSet.getString("code"));
-			role.setName(resultSet.getString("name"));
-			user.setRole(role);
-			
+
+			try {
+				Role role = new Role();
+				role.setCode(resultSet.getString("code"));
+				role.setName(resultSet.getString("name"));
+				user.setRole(role);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
 			return user;
 		} catch (SQLException e) {
 			return null;

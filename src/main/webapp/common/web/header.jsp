@@ -15,14 +15,14 @@
 				<li class="nav-item active"><a class="nav-link" href="#">Trang
 						chủ <span class="sr-only">(current)</span>
 				</a></li>
-				<c:if test="${not empty USERMODEL}">
-					<li class="nav-item"><a class="nav-link" href='#'>Wellcome,
-							${USERMODEL.fullName}</a></li>
+				<c:if test="${not empty USER }">
+					<li class="nav-item"><a class="nav-link" href='#'>Wellcome
+							${USER.username}</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href='<c:url value="/out?action=logout"/>'>Thoát</a></li>
+						href='<c:url value="/logout?action=logout"/>'>Thoát</a></li>
 				</c:if>
-				<c:if test="${empty USERMODEL}"> --%>
-              <li class="nav-item"><a class="nav-link"
+				<c:if test="${empty USER }">
+					<li class="nav-item"><a class="nav-link"
 						href='<c:url value="/login?action=login"/>'>Đăng nhập</a></li>
 				</c:if>
 			</ul>
