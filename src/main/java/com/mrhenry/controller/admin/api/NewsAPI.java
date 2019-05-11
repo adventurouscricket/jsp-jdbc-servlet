@@ -3,6 +3,7 @@ package com.mrhenry.controller.admin.api;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,8 +34,6 @@ public class NewsAPI extends HttpServlet {
 		news = newService.save(news);
 
 		HttpUtil.of(request.getReader()).toJson(response, news);
-
-		System.out.println(news.getContent());
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
