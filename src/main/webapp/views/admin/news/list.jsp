@@ -32,7 +32,7 @@
 												<i class="fa fa-plus-circle bigger-110 purple"></i>
 										</span>
 										</a>
-										<button id="btnDelete" type="button"
+										<button id="btnDelete" type="button" disabled
 											class="dt-button buttons-html5 btn btn-white btn-primary btn-bold"
 											data-toggle="tooltip" title='Xóa bài viết'>
 											<span> <i class="fa fa-trash-o bigger-110 pink"></i>
@@ -48,6 +48,7 @@
 									<table class="table table-bordered">
 										<thead>
 											<tr>
+												<th><input type="checkbox" id="checkAll" class="check-box-element" /></th>
 												<th>Tên bài viết</th>
 												<th>Mô tả ngắn</th>
 												<th>Thao tác</th>
@@ -56,6 +57,7 @@
 										<tbody>
 											<c:forEach var="item" items="${model.listResult}">
 													<tr>
+														<td><input type="checkbox" id="check_${item.id }" class="check-box-element" value="${item.id }" /></td>
 														<td>${item.title}</td>
 														<td>${item.shortdescription}</td>
 														<td>
@@ -89,6 +91,14 @@
 	</div>
 	<!-- /.main-content -->
 	<script type="text/javascript">
+			
+	//when web is loaded that everything is start in here 
+			/* $(document).ready(function(){
+				enableOrDisableBtnDelete();
+				autoCheckAllChild();
+				autoCheckParent();
+			}); */
+	
 			var totalPages = ${model.totalPage};
 			var currentPage = ${model.page};
 			var visiblePages = ${model.maxPageItem}
@@ -110,6 +120,42 @@
 					}
 				});
 			});
+			
+			/* function enableOrDisableBtnDelete(){
+				$('input[type=checkbox]').click(function (){
+					if($('input[type=checkbox]:checked').length > 0){
+						$('#btnDelete').prop('disabled', false);
+					} else {
+						$('#btnDelete').prop('disabled', true);
+					}
+				});	
+			}
+			
+			function autoCheckAllChild(){
+				$('#checkAll').change(function (){
+					if((this).checked){
+						$(this).closest('table').find('tbody').find('input[type=checkbox]').prop('checked', true);
+					} else {
+						$(this).closest('table').find('tbody').find('input[type=checkbox]').prop('checked', false);
+						$('#btnDelete').prop('disabled', true);
+					}
+				});
+			}
+			
+			function autoCheckParent() {
+				var totalCheckChild = $('#checkAll').closest('table').find('tbody').find('input[type=checkbox]').length;
+				$('#checkAll').closest('table').find('tbody').find('input[type=checkbox]').each(function (){
+					$(this).on('change', function() {
+						var totalCheckChildChecked = $('#checkAll').closest('table').find('tbody').find('input[type=checkbox]:checked').length;
+						if(totalCheckChild==totalCheckChildChecked){
+							$('#checkAll').prop('checked',true);
+						} else {
+							$('#checkAll').prop('checked',false);
+						}
+					});
+				});
+				
+			} */
 	</script>
 </body>
 </html>
