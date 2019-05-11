@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mrhenry.model.News;
+import com.mrhenry.model.User;
 import com.mrhenry.service.INewsService;
 import com.mrhenry.utils.HttpUtil;
+import com.mrhenry.utils.SessionUtil;
 
 @WebServlet(urlPatterns = { "/api-admin-news" })
 public class NewsAPI extends HttpServlet {
@@ -27,6 +29,7 @@ public class NewsAPI extends HttpServlet {
 		response.setContentType("application/json"); // trả về định dạng JSON để cho client hiểu
 		// HttpUtil.of(request.getReader()); // convert JSON --> String
 		News news = HttpUtil.of(request.getReader()).toModel(News.class); // Mapper String --> New model
+		news.setCreatedBy(((User)SessionUtil.getInstance().getValue(request, "USER")).getUsername());
 		news = newService.save(news);
 
 		HttpUtil.of(request.getReader()).toJson(response, news);
@@ -40,6 +43,7 @@ public class NewsAPI extends HttpServlet {
 		response.setContentType("application/json"); // trả về định dạng JSON để cho client hiểu
 		// HttpUtil.of(request.getReader()); // convert JSON --> String
 		News news = HttpUtil.of(request.getReader()).toModel(News.class); // Mapper String --> New model
+		news.setModifiedBy(((User) SessionUtil.getInstance().getValue(request, "USER")).getUsername());
 		news = newService.update(news);
 
 		HttpUtil.of(request.getReader()).toJson(response, news);

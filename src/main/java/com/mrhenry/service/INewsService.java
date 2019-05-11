@@ -14,4 +14,5 @@ public interface INewsService{
 //	List<News> findAll(Integer offset, Integer limit, String orderName, String orderBy);
 	List<News> findAll(IPageble pageble);
 	int getTotalItem();
+	News findOne(Long id);
 }

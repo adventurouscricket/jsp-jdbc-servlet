@@ -11,6 +11,7 @@ public class Abstract<T> {
 	private String modifiedBy ;
 	private Long[] ids;
 	private List<T> listResult;
+	private String type;
 	
 	private Integer page;
 	private Integer maxPageItem;
@@ -108,6 +109,12 @@ public class Abstract<T> {
 	}
 	public void setSortBy(String sortBy) {
 		this.sortBy = sortBy;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

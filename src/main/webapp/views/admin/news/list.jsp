@@ -28,7 +28,7 @@
 										<a flag="info"
 											class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
 											data-toggle="tooltip" title='Thêm bài viết'
-											href='<c:url value="/admin-new?type=edit"/>'> <span>
+											href='<c:url value="/admin-news?type=edit"/>'> <span>
 												<i class="fa fa-plus-circle bigger-110 purple"></i>
 										</span>
 										</a>
@@ -50,6 +50,7 @@
 											<tr>
 												<th>Tên bài viết</th>
 												<th>Mô tả ngắn</th>
+												<th>Thao tác</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -57,6 +58,16 @@
 													<tr>
 														<td>${item.title}</td>
 														<td>${item.shortdescription}</td>
+														<td>
+														<c:url var="editURL" value="/admin-news">
+															<c:param name="type" value="edit" />
+															<c:param name="id" value="${item.id}" />
+														</c:url>
+															<a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
+															 title="Cập nhật bài viết" href='${editURL }'><i class="fa fa-pencil-square-o"
+															 aria-hiden="true"></i>
+															</a>
+														</td>
 													</tr>
 												</c:forEach>
 										</tbody>
@@ -66,6 +77,7 @@
 									<input type="hidden" value="" id="maxPageItem" name="maxPageItem" />
 									<input type="hidden" value="" id="sortName" name="sortName" />
 									<input type="hidden" value="" id="sortBy" name="sortBy" />
+									<input type="hidden" value="list" id="type" name="type" />
 								</div>
 							</div>
 						</div>
@@ -80,7 +92,7 @@
 			var totalPages = ${model.totalPage};
 			var currentPage = ${model.page};
 			var visiblePages = ${model.maxPageItem}
-			var limit = 15;
+			var limit = 2;
 			$(function () {
 				window.pagObj = $('#pagination').twbsPagination({
 					totalPages: totalPages,
@@ -92,6 +104,7 @@
 							$('#page').val(page);
 							$('#sortName').val('title');
 							$('#sortBy').val('desc');
+							$('#type').val('list');
 							$('#formSubmit').submit();
 						}
 					}

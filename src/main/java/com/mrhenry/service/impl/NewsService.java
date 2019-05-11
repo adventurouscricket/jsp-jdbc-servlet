@@ -28,7 +28,8 @@ public class NewsService implements INewsService {
 
 		// use for RESFULL
 		news.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-		news.setCreatedBy("");
+		//news.setCreatedBy("");
+		
 		Long id = newsDao.save(news);
 		return newsDao.findOne(id);
 	}
@@ -39,7 +40,7 @@ public class NewsService implements INewsService {
 		News oldNews = newsDao.findOne(updateNews.getId());
 		updateNews.setCreatedBy(oldNews.getCreatedBy());
 		updateNews.setCreatedDate(oldNews.getCreatedDate());
-		updateNews.setModifiedBy("");
+		//updateNews.setModifiedBy("");
 		updateNews.setModifiedDate(new Timestamp(System.currentTimeMillis()));
 		
 		newsDao.update(updateNews);
@@ -71,6 +72,11 @@ public class NewsService implements INewsService {
 	public int getTotalItem() {
 		
 		return newsDao.getTotalItem();
+	}
+
+	@Override
+	public News findOne(Long id) {
+		return newsDao.findOne(id);
 	}
 
 }

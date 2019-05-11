@@ -6,7 +6,7 @@ public class News extends Abstract<News> {
 	private String shortdescription;
 	private String content;
 	private Long categoryId;
-	
+	private String categoryCode;
 	
 	public String getTitle() {
 		return title;
@@ -48,6 +48,12 @@ public class News extends Abstract<News> {
 		this.shortdescription = shortdescription;
 		this.content = content;
 		this.categoryId = categoryid;
+	}
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
 	}
 	
 	
