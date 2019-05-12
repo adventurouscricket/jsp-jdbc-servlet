@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
+
+<c:url var="APIurl" value="/api-admin-news"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +59,7 @@
 										<tbody>
 											<c:forEach var="item" items="${model.listResult}">
 													<tr>
-														<td><input type="checkbox" id="check_${item.id }" class="check-box-element" value="${item.id }" /></td>
+														<td><input type="checkbox" id="check_${item.id }" name="ids" class="check-box-element" value="${item.id }" /></td>
 														<td>${item.title}</td>
 														<td>${item.shortdescription}</td>
 														<td>
@@ -102,7 +104,7 @@
 			var totalPages = ${model.totalPage};
 			var currentPage = ${model.page};
 			var visiblePages = ${model.maxPageItem}
-			var limit = 2;
+			var limit = 6;
 			$(function () {
 				window.pagObj = $('#pagination').twbsPagination({
 					totalPages: totalPages,
@@ -156,6 +158,37 @@
 				});
 				
 			} */
+			
+			$('#btnDelete').click(function (e) {
+				e.preventDefault();
+				var data = {};
+				var ids = [];
+				
+				$.each($('input[name="ids"]:checked'), function (){
+					ids.push($(this).val());
+					
+				});
+				
+				data[""+'ids'+""] = ids;
+				deleteNews(data);
+			});
+			
+			function deleteNews(data) {
+				$.ajax ({
+					url: '${APIurl}',
+					type: 'DELETE',
+					contentType: 'application/json',
+					data: JSON.stringify(data),
+					dataType: 'json',
+					success: function(result){
+						console.log(result);
+					},
+					error: function(error){
+						console.log(error);
+					},
+				});
+				
+			}
 	</script>
 </body>
 </html>

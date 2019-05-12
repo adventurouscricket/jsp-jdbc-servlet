@@ -1,3 +1,4 @@
+//when web is loaded that everything is start in here 
 $(document).ready(function() {
 	enableOrDisableBtnDelete();
 	autoCheckAllChild();

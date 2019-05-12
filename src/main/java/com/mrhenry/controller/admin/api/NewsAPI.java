@@ -34,6 +34,7 @@ public class NewsAPI extends HttpServlet {
 		news = newService.save(news);
 
 		HttpUtil.of(request.getReader()).toJson(response, news);
+		
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
