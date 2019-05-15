@@ -38,7 +38,7 @@
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-list"></i>
                 <span class="menu-text"></span>
-                Quản lý bài viết
+                Quản lý
                 <b class="arrow fa fa-angle-down"></b>
             </a>
             <b class="arrow"></b>
@@ -47,6 +47,13 @@
                     <a href='<c:url value="/admin-news?type=list&page=1&maxPageItem=6&sortName=title&sortBy=desc"/>'>
                         <i class="menu-icon fa fa-caret-right"></i>
                         Danh sách bài viết
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li>
+                    <a href='<c:url value="/admin-category?type=list&page=1&maxPageItem=3&sortName=createdDate&sortBy=desc"/>'>
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Danh sách thể loại
                     </a>
                     <b class="arrow"></b>
                 </li>

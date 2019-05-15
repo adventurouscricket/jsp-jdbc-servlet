@@ -9,6 +9,7 @@ import org.apache.commons.beanutils.BeanUtils;
 public class FormUtil {
 	
 	// convert request param from URL => model
+	@SuppressWarnings("unchecked")
 	public static <T> T tModel(Class<T> clazz, HttpServletRequest request){
 		T object = null;
 		try {

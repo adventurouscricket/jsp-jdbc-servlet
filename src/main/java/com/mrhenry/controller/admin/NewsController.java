@@ -61,7 +61,7 @@ public class NewsController extends HttpServlet {
 				model = new News();	
 			}
 			
-			request.setAttribute("categories", categoryService.findAll());
+			request.setAttribute("categories", categoryService.findAll(new PageRequest()));
 			
 			view = "/views/admin/news/edit.jsp";
 		}

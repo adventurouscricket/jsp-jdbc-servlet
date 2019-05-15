@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.mrhenry.dao.ICategoryDAO;
 import com.mrhenry.model.Category;
+import com.mrhenry.paging.IPageble;
 import com.mrhenry.service.ICategoryService;
 
 public class CategoryService implements ICategoryService {
@@ -14,8 +15,8 @@ public class CategoryService implements ICategoryService {
 	@Inject
 	ICategoryDAO categoryDao;
 
-	public List<Category> findAll() {
-		return categoryDao.findAll();
+	public List<Category> findAll(IPageble pageble) {
+		return categoryDao.findAll(pageble);
 	}
 
 	@Override
@@ -51,6 +52,12 @@ public class CategoryService implements ICategoryService {
 	public Category findOne(Long id) {
 
 		return categoryDao.findOne(id);
+	}
+
+	@Override
+	public int getTotalItem() {
+		
+		return categoryDao.getTotalItem();
 	}
 
 }

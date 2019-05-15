@@ -14,6 +14,10 @@ public class PageRequest implements IPageble {
 		this.sorter = sorter;
 	}
 
+	public PageRequest() {
+		super();
+	}
+
 	@Override
 	public Integer getPage() {
 		// TODO Auto-generated method stub
