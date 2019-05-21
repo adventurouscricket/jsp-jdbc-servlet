@@ -96,12 +96,12 @@
 									<c:if test="${not empty model.id}">
 										<input type="button" class="form-control"
 											class="btn btn-white btn-warning btn-bold"
-											id="btnAddOrUpdateNews" value="Cập nhật bài viết" />
+											id="btnAddOrUpdate" value="Cập nhật bài viết" />
 									</c:if>
 									<c:if test="${empty model.id }">
 										<input type="button" class="form-control"
 											class="btn btn-white btn-warning btn-bold"
-											id="btnAddOrUpdateNews" value="Thêm bài viết" />
+											id="btnAddOrUpdate" value="Thêm bài viết" />
 									</c:if>
 								</div>
 							</div>
@@ -114,7 +114,7 @@
 	</div>
 	<!-- /.main-content -->
 	<script>
-		$('#btnAddOrUpdateNews').click(function(e) {
+		$('#btnAddOrUpdate').click(function(e) {
 			e.preventDefault();
 			var data = {};
 			var formData = $("#formSubmit").serializeArray();

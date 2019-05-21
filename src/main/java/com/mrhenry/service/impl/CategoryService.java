@@ -22,7 +22,7 @@ public class CategoryService implements ICategoryService {
 	@Override
 	public Category save(Category category) {
 
-		category.setCreatedBy("");
+//		category.setCreatedBy("");
 		category.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		Long id = categoryDao.save(category);
 
@@ -34,7 +34,7 @@ public class CategoryService implements ICategoryService {
 		Category oldCategory = categoryDao.findOne(category.getId());
 		category.setCreatedBy("");
 		category.setCreatedDate(oldCategory.getCreatedDate());
-		category.setModifiedBy("");
+//		category.setModifiedBy("");
 		category.setModifiedDate(new Timestamp(System.currentTimeMillis()));
 		categoryDao.update(category);
 

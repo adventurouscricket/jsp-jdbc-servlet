@@ -57,6 +57,13 @@
                     </a>
                     <b class="arrow"></b>
                 </li>
+                <li>
+                    <a href='<c:url value="/admin-user?type=list&page=1&maxPageItem=3&sortName=username&sortBy=desc"/>'>
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Danh sách user
+                    </a>
+                    <b class="arrow"></b>
+                </li>
             </ul>
         </li>
     </ul>
