@@ -89,6 +89,9 @@
 									<input type="text" class="form-control" id="content"
 										name="content" value="${model.content }" />
 								</div>
+								<!-- <div class="col-sm-9">
+									<textarea id="content" class="form-control" name="content" >32131</textarea>
+								</div> -->
 							</div>
 							<br /> <br />
 							<div class="form-group">
@@ -114,6 +117,8 @@
 	</div>
 	<!-- /.main-content -->
 	<script>
+		/* CKEDITOR.replace('content'); */
+	
 		$('#btnAddOrUpdate').click(function(e) {
 			e.preventDefault();
 			var data = {};

@@ -11,8 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mrhenry.constant.SystemConstant;
+import com.mrhenry.model.News;
 import com.mrhenry.model.User;
+import com.mrhenry.paging.IPageble;
+import com.mrhenry.paging.PageRequest;
+import com.mrhenry.service.ICategoryService;
+import com.mrhenry.service.INewsService;
 import com.mrhenry.service.IUserService;
+import com.mrhenry.sort.Sorter;
 import com.mrhenry.utils.FormUtil;
 import com.mrhenry.utils.SessionUtil;
 
@@ -31,6 +38,12 @@ public class HomeController extends HttpServlet {
 
 	@Inject
 	private IUserService userService;
+	
+	@Inject
+	private ICategoryService categoryService;
+	
+	@Inject
+	private INewsService newsService;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -51,6 +64,9 @@ public class HomeController extends HttpServlet {
 //		request.setAttribute("categorys", categoryService.findAll());
 
 		String action = request.getParameter("action");
+		String view = "";
+		
+		
 		if (action != null) {
 			if (action.equals("login")) {
 				String message = request.getParameter("message");
@@ -60,7 +76,7 @@ public class HomeController extends HttpServlet {
 					request.setAttribute("message", resourceBundle.getString(message));
 					request.setAttribute("alert", alert);
 				}
-
+				
 				RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp");
 				rd.forward(request, response);
 				
@@ -69,7 +85,65 @@ public class HomeController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/home");
 			}
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
+//			request.setAttribute("categories", categoryService.findAll(new PageRequest()));
+//			
+//			request.setAttribute("newses", newsService.findAll(new PageRequest()));
+			
+			
+			News model = FormUtil.tModel(News.class, request);
+			
+			if (model.getType() != null) {
+				if(model.getType().equals(SystemConstant.LIST)) {
+					IPageble pageble = new PageRequest(model.getPage(), model.getMaxPageItem(),
+							new Sorter(model.getSortName(), model.getSortBy()));
+					model.setListResult(newsService.findAll(pageble));
+					model.setTotalItem(newsService.getTotalItem());
+					model.setTotalPage((int)Math.ceil((double) model.getTotalItem()/model.getMaxPageItem()));
+					
+					request.setAttribute("categories", categoryService.findAll(new PageRequest()));
+					view="/views/web/home.jsp";
+					
+				} else if(model.getType().equals(SystemConstant.DETAIL)) {
+					model = newsService.findOne(model.getId());
+					view="/views/web/detail.jsp";
+					
+				}
+			}
+			
+//			if(model.getType().equals(SystemConstant.LIST)) {
+//				IPageble pageble = new PageRequest(model.getPage(), model.getMaxPageItem(),
+//						new Sorter(model.getSortName(), model.getSortBy()));
+//				model.setListResult(newsService.findAll(pageble));
+//				model.setTotalItem(newsService.getTotalItem());
+//				model.setTotalPage((int)Math.ceil((double) model.getTotalItem()/model.getMaxPageItem()));
+//				
+//				request.setAttribute("categories", categoryService.findAll(new PageRequest()));
+//				view="/views/web/home.jsp";
+//				
+//			} else if(model.getType().equals(SystemConstant.DETAIL)) {
+//				model = newsService.findOne(model.getId());
+//				view="/views/web/detail.jsp";
+//				
+//			} 
+			else {
+				model.setPage(1);
+				model.setMaxPageItem(6);
+				model.setSortName("title");
+				model.setSortBy("desc");
+				
+				IPageble pageble = new PageRequest(model.getPage(), model.getMaxPageItem(),
+						new Sorter(model.getSortName(), model.getSortBy()));
+				model.setListResult(newsService.findAll(pageble));
+				model.setTotalItem(newsService.getTotalItem());
+				model.setTotalPage((int)Math.ceil((double) model.getTotalItem()/model.getMaxPageItem()));
+				
+				request.setAttribute("categories", categoryService.findAll(new PageRequest()));
+				view="/views/web/home.jsp";
+			}
+			
+			request.setAttribute(SystemConstant.MODEL, model);
+			
+			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);
 		}
 	}
