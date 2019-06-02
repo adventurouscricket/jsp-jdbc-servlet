@@ -24,32 +24,6 @@
 
         <div class="col-lg-9">
 			<form action="<c:url value='/home'/>" id="formSubmit" method="get">
-	          <!-- <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-	            <ol class="carousel-indicators">
-	              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-	              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-	              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-	            </ol>
-	            <div class="carousel-inner" role="listbox">
-	              <div class="carousel-item active">
-	                <img class="d-block img-fluid" src="https://edecorati.com/data/out/226/pictures-of-palm-trees_292628072.jpg" alt="First slide">
-	              </div>
-	              <div class="carousel-item">
-	                <img class="d-block img-fluid" src="http://irishfungalsociety.org/wp-content/uploads/2018/02/IMG_2024-900x350.jpg" alt="Second slide">
-	              </div>
-	              <div class="carousel-item">
-	                <img class="d-block img-fluid" src="http://destinationkenya.co.ke/wp-content/uploads/2016/07/19366-boats-on-zanzibar-beach-1920x1200-beach-wallpaper-900x350.jpg" alt="Third slide">
-	              </div>
-	            </div>
-	            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-	              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	              <span class="sr-only">Previous</span>
-	            </a>
-	            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-	              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	              <span class="sr-only">Next</span>
-	            </a>
-	          </div> -->
 			<br/>
 			<br/>
 	          <div class="row">

@@ -25,6 +25,10 @@
 					<li class="nav-item"><a class="nav-link"
 						href='<c:url value="/login?action=login"/>'>Đăng nhập</a></li>
 				</c:if>
+				<c:if test="${empty USER }">
+					<li class="nav-item"><a class="nav-link"
+						href='<c:url value="/signup?action=signup"/>'>Đăng ký</a></li>
+				</c:if>
 			</ul>
 		</div>
 	</div>

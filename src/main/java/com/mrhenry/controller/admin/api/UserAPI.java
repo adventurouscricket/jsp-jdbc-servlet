@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mrhenry.model.News;
 import com.mrhenry.model.User;
 import com.mrhenry.service.IUserService;
 import com.mrhenry.utils.HttpUtil;

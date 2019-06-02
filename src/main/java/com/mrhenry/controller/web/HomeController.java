@@ -23,13 +23,13 @@ import com.mrhenry.sort.Sorter;
 import com.mrhenry.utils.FormUtil;
 import com.mrhenry.utils.SessionUtil;
 
-@WebServlet(urlPatterns = { "/home", "/login", "/logout" })
+@WebServlet(urlPatterns = { "/home", "/login", "/logout", "/signup" })
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
-	
+
 //	@Inject
 //	private ICategoryService categoryService;
 
@@ -38,14 +38,14 @@ public class HomeController extends HttpServlet {
 
 	@Inject
 	private IUserService userService;
-	
+
 	@Inject
 	private ICategoryService categoryService;
-	
+
 	@Inject
 	private INewsService newsService;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 //		Long id = 2L;
@@ -65,84 +65,75 @@ public class HomeController extends HttpServlet {
 
 		String action = request.getParameter("action");
 		String view = "";
-		
-		
+
 		if (action != null) {
+			String message = request.getParameter("message");
+			String alert = request.getParameter("alert");
+
 			if (action.equals("login")) {
-				String message = request.getParameter("message");
-				String alert = request.getParameter("alert");
+//				String message = request.getParameter("message");
+//				String alert = request.getParameter("alert");
 
 				if (message != null && alert != null) {
 					request.setAttribute("message", resourceBundle.getString(message));
 					request.setAttribute("alert", alert);
 				}
-				
+
 				RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp");
 				rd.forward(request, response);
-				
+
 			} else if (action.equals("logout")) {
 				SessionUtil.getInstance().removeValue(request, "USER");
 				response.sendRedirect(request.getContextPath() + "/home");
+			} else if (action.equals("signup")) {
+				if (message != null && alert != null) {
+					request.setAttribute("message", resourceBundle.getString(message));
+					request.setAttribute("alert", alert);
+				}
+
+				RequestDispatcher rd = request.getRequestDispatcher("/views/signup.jsp");
+				rd.forward(request, response);
 			}
 		} else {
 //			request.setAttribute("categories", categoryService.findAll(new PageRequest()));
 //			
 //			request.setAttribute("newses", newsService.findAll(new PageRequest()));
-			
-			
+
 			News model = FormUtil.tModel(News.class, request);
-			
+
 			if (model.getType() != null) {
-				if(model.getType().equals(SystemConstant.LIST)) {
+				if (model.getType().equals(SystemConstant.LIST)) {
 					IPageble pageble = new PageRequest(model.getPage(), model.getMaxPageItem(),
 							new Sorter(model.getSortName(), model.getSortBy()));
 					model.setListResult(newsService.findAll(pageble));
 					model.setTotalItem(newsService.getTotalItem());
-					model.setTotalPage((int)Math.ceil((double) model.getTotalItem()/model.getMaxPageItem()));
-					
+					model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getMaxPageItem()));
+
 					request.setAttribute("categories", categoryService.findAll(new PageRequest()));
-					view="/views/web/home.jsp";
-					
-				} else if(model.getType().equals(SystemConstant.DETAIL)) {
+					view = "/views/web/home.jsp";
+
+				} else if (model.getType().equals(SystemConstant.DETAIL)) {
 					model = newsService.findOne(model.getId());
-					view="/views/web/detail.jsp";
-					
+					view = "/views/web/detail.jsp";
 				}
-			}
-			
-//			if(model.getType().equals(SystemConstant.LIST)) {
-//				IPageble pageble = new PageRequest(model.getPage(), model.getMaxPageItem(),
-//						new Sorter(model.getSortName(), model.getSortBy()));
-//				model.setListResult(newsService.findAll(pageble));
-//				model.setTotalItem(newsService.getTotalItem());
-//				model.setTotalPage((int)Math.ceil((double) model.getTotalItem()/model.getMaxPageItem()));
-//				
-//				request.setAttribute("categories", categoryService.findAll(new PageRequest()));
-//				view="/views/web/home.jsp";
-//				
-//			} else if(model.getType().equals(SystemConstant.DETAIL)) {
-//				model = newsService.findOne(model.getId());
-//				view="/views/web/detail.jsp";
-//				
-//			} 
-			else {
+			} else {
 				model.setPage(1);
 				model.setMaxPageItem(6);
 				model.setSortName("title");
 				model.setSortBy("desc");
-				
+
 				IPageble pageble = new PageRequest(model.getPage(), model.getMaxPageItem(),
 						new Sorter(model.getSortName(), model.getSortBy()));
 				model.setListResult(newsService.findAll(pageble));
 				model.setTotalItem(newsService.getTotalItem());
-				model.setTotalPage((int)Math.ceil((double) model.getTotalItem()/model.getMaxPageItem()));
-				
+				model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getMaxPageItem()));
+
 				request.setAttribute("categories", categoryService.findAll(new PageRequest()));
-				view="/views/web/home.jsp";
+				view = "/views/web/home.jsp";
 			}
-			
+
 			request.setAttribute(SystemConstant.MODEL, model);
-			
+
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);
 		}
